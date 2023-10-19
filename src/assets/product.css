@@ -1,0 +1,91 @@
+.pcontent {
+	width: 100%;
+	height: 100%;
+	background: #e9ecef;
+	border-radius: 16px;
+}
+
+.title {
+	font-size: 14px;
+	margin-top: 24px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	object-fit: contain;
+}
+
+.title2 {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 150%;
+}
+
+.pricetext {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	color: #d71921;
+}
+
+.modalt {
+	margin-top: 8px;
+	color: #6c757d;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+.grid-container {
+	display: grid;
+	grid-row: auto;
+	gap: 10px;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.flex-between {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.header3 {
+	justify-content: space-between;
+}
+
+.productswiper {
+	height: 65px;
+}
+
+.foodimg {
+	width: 100%;
+}
+
+.imgmodal {
+	width: 40%;
+}
+
+.mt8 {
+	margin-top: 8px;
+}
+
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+
+	/* Center slide text vertically */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.swiper-slide:nth-child(odd) {
+	width: auto;
+}
+
+.swiper-slide:nth-child(even) {
+	width: auto;
+}

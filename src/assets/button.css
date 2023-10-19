@@ -1,0 +1,201 @@
+.logout {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    width: 165px;
+    height: 45px;
+    margin-top: 69px;
+    margin-left: 16px;
+    font-size: 14px;
+    bottom: 46px;
+    margin-bottom: 24px;
+}
+
+.ordernow {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    width: 161px;
+    height: 60px;
+    right: 16px;
+    font-size: 14px;
+    position: fixed;
+    bottom: 19px;
+    z-index: 2;
+}
+
+.buttons {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-focused: #c21820;
+    --border-radius: 16px;
+    height: 43px;
+    font-size: 14px;
+
+}
+
+.reactive {
+    --background: rgba(0, 0, 0, 0.1);
+    --background-activated: rgb(217, 217, 217);
+    color: #c21820;
+    width: 32px;
+    height: 32px;
+    --border-radius: 12px;
+    --box-shadow: none;
+}
+
+.buttonback {
+    --background: transparent;
+}
+
+.buttongrey {
+    --background: #DEE2E6;
+    --background-hover: #c6cace;
+    --background-focused: #c6cace;
+    --color: #6C757D;
+    --border-radius: 16px;
+    --box-shadow: none;
+    height: 43px;
+    font-size: 14px;
+    text-transform: none;
+}
+
+.buttonsummary {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    width: 92%;
+    height: 60px;
+    position: fixed;
+    border-radius: 16px;
+    bottom: 10px;
+    margin-right: 100px;
+    z-index: 10;
+}
+
+.buttonsummary1 {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    width: 213px;
+    height: 45px;
+    border-radius: 16px;
+    z-index: 20;
+}
+
+.flex10 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px 0px 16px;
+}
+
+.buttonorder1 {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    width: 100%;
+    height: 60px;
+    border-radius: 16px;
+    z-index: 20;
+}
+
+.modalbutton {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    width: 80%;
+    height: 45px;
+    border-radius: 16px;
+    z-index: 20;
+    margin-top: 24px;
+}
+
+
+.lowerbutton1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #D71921;
+}
+
+
+.modalbutton2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #D71921;
+    margin-bottom: 8px;
+}
+
+.bottomlow {
+    position: fixed;
+    bottom: 23px;
+    width: 100%;
+}
+
+.loyaltybutton {
+    text-transform: none;
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    --box-shadow: none;
+    width: 50px;
+    height: 43px;
+    font-size: 14px;
+}
+
+.loyaltybuttongrey {
+    --background: #DEE2E6;
+    --background-hover: #c6cace;
+    --background-activated: #DEE2E6;
+    --background-focused: #c6cace;
+    --color: #6C757D;
+    --border-radius: 16px;
+    --box-shadow: none;
+    height: 43px;
+    font-size: 14px;
+    text-transform: none;
+}
+
+ion-radio {
+    background-color: #fff;
+    border-radius: 100%;
+    --color: #fff;
+    --color-checked: #FFC02E;
+}
+
+ion-radio.ios::part(container) {
+    width: 20px;
+    height: 20px;
+
+}
+
+.radio-checked.ios::part(container) {
+    border-color: #FFC02E;
+}
