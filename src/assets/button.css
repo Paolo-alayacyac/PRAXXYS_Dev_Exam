@@ -14,6 +14,20 @@
     margin-bottom: 24px;
 }
 
+.login__button {
+    --background: #D71921;
+    --background-hover: #c21820;
+    --background-activated: #c21820;
+    --background-focused: #c21820;
+    --color: white;
+    --border-radius: 16px;
+    width: 100%;
+    height: 60px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: lowercase;
+}
+
 .ordernow {
     --background: #D71921;
     --background-hover: #c21820;

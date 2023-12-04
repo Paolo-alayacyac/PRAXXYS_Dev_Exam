@@ -6,6 +6,7 @@ import FoodSummary from '../Views/FoodInformation/FoodSummary.vue';
 import LoyaltyPoints from '../Views/Loyalty/LoyaltyPoints.vue';
 import OrderSummary from '../Views/Ordersummary/OrderSummary.vue';
 import OrderReceived from '../Views/Order/OrderReceived.vue';
+import LoginPage from '../Views/Loginpage/LoginPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,6 +17,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: 'Home',
     component: HomePage
+  },
+
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage
   },
 
   {
