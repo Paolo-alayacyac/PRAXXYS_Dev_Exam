@@ -7,14 +7,15 @@
 					alt="food"
 					class="foodimg" />
 			</div>
-			<div class="foodproduct">
+			<div class="foodproduct ">
 				<p class="title">{{ name }}</p>
-				<p class="title2">{{ description }}</p>
+				<p class="title2 line-clamp-1">{{ description }}</p>
 				<div class="flex-between">
 					<ion-text class="pricetext"> P {{ price }} </ion-text>
-					<img
+					<ion-text> Rate {{ rate}} </ion-text>
+					<!-- <img
 						:src="rate"
-						alt="rating" />
+						alt="rating" /> -->
 				</div>
 			</div>
 		</div>

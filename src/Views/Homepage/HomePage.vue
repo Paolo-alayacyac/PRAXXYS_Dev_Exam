@@ -31,13 +31,7 @@
 
             <!-- SWIPER FOR SPECIAL OFFER -->
             <swiper :slides-per-view="1.1" :spaceBetween="8" class="ml">
-                <swiper-slide>
-                    <img class="special" src="/assets/homepage/Special.png">
-                </swiper-slide>
-                <swiper-slide>
-                    <img class="special" src="/assets/homepage/Special.png">
-                </swiper-slide>
-                <swiper-slide>
+                <swiper-slide v-for="i in 10" :key="i">
                     <img class="special" src="/assets/homepage/Special.png">
                 </swiper-slide>
             </swiper>
@@ -47,19 +41,7 @@
             <div>
                 <h2 class="ion-padding">Category</h2>
                 <swiper :slides-per-view="1.65" :spaceBetween="8" class="ml">
-                    <swiper-slide>
-                        <img class="special" src="/assets/homepage/category.png">
-                    </swiper-slide>
-                    <swiper-slide>
-                        <img class="special" src="/assets/homepage/category.png">
-                    </swiper-slide>
-                    <swiper-slide>
-                        <img class="special" src="/assets/homepage/category.png">
-                    </swiper-slide>
-                    <swiper-slide>
-                        <img class="special" src="/assets/homepage/category.png">
-                    </swiper-slide>
-                    <swiper-slide>
+                    <swiper-slide v-for="i in 10" :key="i">
                         <img class="special" src="/assets/homepage/category.png">
                     </swiper-slide>
                 </swiper>
@@ -76,7 +58,10 @@
                 <h2 class="ion-padding">Most Popular</h2>
                 <section>
                     <div class="grid-container ion-padding-start ion-padding-end">
-                        <ProductBonchon v-for="i in 4" :key="i"></ProductBonchon>
+                        <div v-for="item in product" :key="item.id">
+                            <ProductBonchon :name="item.name" :description="item.description" :price="item.price"
+                                :image="item.image" :rate="item.ratings" />
+                        </div>
                     </div>
                 </section>
             </div>
@@ -112,4 +97,45 @@ import {
 
 import 'swiper/css';
 import '@ionic/vue/css/ionic-swiper.css';
+
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+const username = ref("user@praxxys.ph");
+const password = ref("password");
+const product = ref([]);
+
+let accessToken = '';
+
+const fetchToken = async () => {
+    try {
+        const response = await axios.post(
+            "https://psi-exam-api.praxxys.dev/api/auth/login",
+            { email: username.value, password: password.value }
+        );
+        accessToken = response.data.access_token;
+        // console.log(JSON.stringify(accessToken));
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const fetchData = async () => {
+    try {
+        await fetchToken();
+
+        const response = await axios.get(
+            "https://psi-exam-api.praxxys.dev/api/products",
+            { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+        product.value = response.data.data.data;
+        // console.log(JSON.stringify(response.data));
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+onMounted(() => {
+    fetchData();
+});
 </script>
