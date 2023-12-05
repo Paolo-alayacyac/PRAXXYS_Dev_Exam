@@ -33,9 +33,9 @@
 			Login as a guest
 		</a>
 
-		<div class="flex h-[50%] justify-center items-end">
+		<div class="flex h-[33%] justify-center items-end">
 			<p class="pr-2">Don’t have an account yet?</p>
-			<router-link to="/signup" class="text-red-500">Create?</router-link>
+			<router-link to="" class="text-red-500">Create?</router-link>
 		</div>
 
 
