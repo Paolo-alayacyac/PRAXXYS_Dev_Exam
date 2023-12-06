@@ -7,20 +7,18 @@
             <div class="foodsummarypadding">
                 <div>
                     <div class="summaryitem">
-                        <img class="aspect" alt="Profile pic" src="/assets/summary/food1.svg" />
+                        <img class="aspect" alt="Profile pic" :src="selectedItem.image" />
                     </div>
 
-                    <p class="mt">Steak Fries Veggies</p>
+                    <p class="mt">{{ selectedItem.name }}</p>
                     <img class="mt" alt="Profile" src="/assets/product/Rating.svg" />
                     <p class="p3 mt">
-                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-                        cubilia curae; Nam eu aliquam ipsum, sed accumsan metus. Maecenas neque nunc,
-                        tincidunt nec dui ac, rutrum consectetur ligula.
+                        {{ selectedItem.description }}
                     </p>
                 </div>
 
                 <div class="flex3">
-                    <p class="foodp">P 172</p>
+                    <p class="foodp"> P {{ selectedItem.price }} </p>
                     <!-- Button Component -->
                     <Incrementation></Incrementation>
                 </div>
@@ -43,7 +41,6 @@
                         X-Large
                     </ion-button>
                 </div>
-
 
                 <!-- ADD ONS -->
                 <div class="addons1 mt">
@@ -119,4 +116,56 @@ import {
     IonRadio,
     IonPage
 } from "@ionic/vue";
+
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import axios from "axios";
+
+const username = ref("user@praxxys.ph");
+const password = ref("password");
+const product = ref([]);
+const route = useRoute();
+const selectedItem = ref({});
+const itemId = Number(route.params.id);
+
+let accessToken = '';
+
+const fetchToken = async () => {
+    try {
+        const response = await axios.post(
+            "https://psi-exam-api.praxxys.dev/api/auth/login",
+            { email: username.value, password: password.value }
+        );
+        return accessToken = response.data.access_token;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const fetchData = async () => {
+    try {
+        const itemId = Number(route.params.id);
+        await fetchToken();
+
+        const response = await axios.get(
+            "https://psi-exam-api.praxxys.dev/api/products",
+            { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+        product.value = response.data.data.data;
+        console.log(product.value);
+        selectedItem.value = product.value.find(product => product.id === itemId);
+        console.log(selectedItem.value);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+onMounted(() => {
+    fetchData();
+});
+
+
+onMounted(() => {
+    fetchData();
+});
 </script>
