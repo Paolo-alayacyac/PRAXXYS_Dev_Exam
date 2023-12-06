@@ -30,10 +30,10 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Product',
     component: ProductProduct
   },
-  {
-    path: '/summary',
+  { 
+    path: '/summary/:id',
     name: 'Summary',
-    component: FoodSummary
+    component: FoodSummary ,
   },
   {
     path: '/loyalty',

@@ -59,8 +59,10 @@
                 <section>
                     <div class="grid-container ion-padding-start ion-padding-end">
                         <div v-for="item in product" :key="item.id">
-                            <ProductBonchon :name="item.name" :description="item.description" :price="item.price"
-                                :image="item.image" :rate="item.ratings" />
+                           
+                                <ProductBonchon :name="item.name" :description="item.description" :price="item.price"
+                                    :image="item.image" :rate="item.ratings" />
+                            
                         </div>
                     </div>
                 </section>
@@ -105,6 +107,7 @@ const username = ref("user@praxxys.ph");
 const password = ref("password");
 const product = ref([]);
 
+
 let accessToken = '';
 
 const fetchToken = async () => {
@@ -134,6 +137,7 @@ const fetchData = async () => {
         console.log(error);
     }
 };
+
 
 onMounted(() => {
     fetchData();

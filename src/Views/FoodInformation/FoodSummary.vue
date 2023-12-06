@@ -43,7 +43,7 @@
                         X-Large
                     </ion-button>
                 </div>
-                
+
 
                 <!-- ADD ONS -->
                 <div class="addons1 mt">
@@ -119,5 +119,4 @@ import {
     IonRadio,
     IonPage
 } from "@ionic/vue";
-
 </script>
