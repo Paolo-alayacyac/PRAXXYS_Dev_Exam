@@ -1,5 +1,5 @@
 <template>
-	<div class="mx-4 h-[100%]">
+	<div class="mx-4 z-0 h-[100%]">
 		<img class="pt-9" src="/assets/icon/Logo.png" />
 		<p class="text-2xl font-bold pt-6">Bonjour!</p>
 		<p class="text-gray-600 text-sm pt-2">

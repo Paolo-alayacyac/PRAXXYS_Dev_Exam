@@ -1,8 +1,8 @@
 <template>
-    <div id="main-content">
+    <div id="main-content" class="z-50">
         <ion-header class="ion-no-border">
             <ion-toolbar class="toolbar">
-                <div class="topheader">
+                <div class="topheader bg-white">
                     <ion-buttons>
                         <ion-menu-button class="burger">
                             <img alt="button" src="./../../public/assets/menu/burger.svg" />

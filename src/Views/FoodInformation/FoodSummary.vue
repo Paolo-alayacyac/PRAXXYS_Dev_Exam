@@ -5,12 +5,12 @@
         <ion-content>
             <!-- Main Content -->
             <div class="foodsummarypadding">
-                <div>
-                    <div class="summaryitem">
+                <div class="h-full">
+                    <div class="summaryitem h-full">
                         <img class="aspect" alt="Profile pic" :src="selectedItem.image" />
                     </div>
 
-                    <p class="mt">{{ selectedItem.name }}</p>
+                    <p class="mt-7">{{ selectedItem.name }}</p>
                     <img class="mt" alt="Profile" src="/assets/product/Rating.svg" />
                     <p class="p3 mt">
                         {{ selectedItem.description }}

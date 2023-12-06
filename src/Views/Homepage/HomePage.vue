@@ -1,5 +1,5 @@
 <template>
-    <ion-page>
+    <ion-page class="z-50">
         <!-- header -->
         <TopNavigation />
         <ion-content>
