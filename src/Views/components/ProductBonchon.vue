@@ -1,5 +1,5 @@
 <template>
-	<a href="/summary">
+	
 		<div class="pcontent ion-padding">
 			<div class="foods">
 				<img :src="image" alt="food" class="foodimg" />
@@ -16,7 +16,6 @@
 				</div>
 			</div>
 		</div>
-	</a>
 </template>
 
 <script setup lang="ts">

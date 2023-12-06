@@ -60,8 +60,10 @@
                     <div class="grid-container ion-padding-start ion-padding-end">
                         <div v-for="item in product" :key="item.id">
                            
-                                <ProductBonchon :name="item.name" :description="item.description" :price="item.price"
-                                    :image="item.image" :rate="item.ratings" />
+                            <router-link :to="{ name: 'Summary', params: { id: item.id } }">
+							<ProductBonchon :name="item.name" :description="item.description" :price="item.price"
+								:image="item.image" :rate="item.ratings" />
+						</router-link>
                             
                         </div>
                     </div>
