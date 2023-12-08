@@ -54,7 +54,7 @@
                             <h3>
                                 My Home Address
                             </h3>
-                            <ion-radio  slot="start"></ion-radio>
+                            <ion-radio slot="start"></ion-radio>
                         </div>
                         <p class="p10 mt8">
                             No. 21 St. Agustin Street, Brgy. De Jose <br>Delgado City 2234 Philippines
@@ -79,12 +79,12 @@
 
                 <!-- ORDERS -->
                 <h2 class="ion-padding-top">Orders</h2>
-                <div class="flex mt">
+                <div class="flex mt" v-for="item in cart" :key="item.user_id">
                     <div class="orders">
                         <div class="flex">
                             <img src="/assets/summary/pngwing2.png" alt="food">
                             <div class="ml">
-                                <p class="steak">Steak Fries Veggies</p>
+                                <p class="steak"> {{ item.id }} </p>
                                 <p class="psummary">1x Tomato Sauce</p>
                                 <p class="psummary">1x Regular Coke</p>
                                 <p class="psummary">1x Fried Chicken</p>
@@ -196,7 +196,7 @@
     </ion-page>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {
     IonButton,
     IonHeader,
@@ -205,42 +205,67 @@ import {
     IonRadio,
     IonPage
 } from '@ionic/vue';
+
 import {
     Swiper,
     SwiperSlide
 } from 'swiper/vue';
 
-
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    components: {
-        IonButton,
-        IonHeader,
-        IonContent,
-        IonToolbar,
-        IonRadio,
-        IonPage,
-        Swiper,
-        SwiperSlide
-    },
-    data() {
-        return {
-            count: 0,
-        };
-    },
-    methods: {
-        increment() {
-            this.count++;
-        },
-        decrement() {
-            if (this.count > 0) {
-                this.count--;
-            }
-        },
-    },
-});
-
 import 'swiper/css';
 import '@ionic/vue/css/ionic-swiper.css';
+
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const username = ref("user@praxxys.ph");
+const password = ref("password");
+const cart = ref([]);
+const count = ref(1);
+
+let accessToken = '';
+
+const increment = () => {
+    count.value++;
+};
+
+const decrement = () => {
+    if (count.value > 0) {
+        count.value--;
+    }
+};
+
+const fetchToken = async () => {
+    try {
+        const response = await axios.post(
+            "https://psi-exam-api.praxxys.dev/api/auth/login",
+            { email: username.value, password: password.value }
+        );
+        accessToken = response.data.access_token;
+        console.log(JSON.stringify(accessToken));
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const fetchCart = async () => {
+    try {
+        await fetchToken();
+
+        const response = await axios.get(
+            "https://psi-exam-api.praxxys.dev/api/cart",
+            { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+        cart.value = response.data;
+
+        console.log(JSON.stringify(cart.value));
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+onMounted(() => {
+    fetchCart();
+    fetchToken();
+    console.log(cart);
+});
 </script>

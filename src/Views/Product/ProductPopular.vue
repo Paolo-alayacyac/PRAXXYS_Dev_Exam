@@ -1,7 +1,7 @@
 <template>
 	<ion-page>
 		<!-- Header -->
-		<ProductHeader />
+		<ProductHeader class="z-0"/>
 		<ion-content>
 			<SideBar />
 
@@ -15,20 +15,8 @@
 					<swiper-slide>
 						<ion-button class="buttons"> All </ion-button>
 					</swiper-slide>
-					<swiper-slide>
-						<ion-button class="buttongrey"> Breakfast </ion-button>
-					</swiper-slide>
-					<swiper-slide>
-						<ion-button class="buttongrey"> Chicken </ion-button>
-					</swiper-slide>
-					<swiper-slide>
-						<ion-button class="buttongrey"> Seafood </ion-button>
-					</swiper-slide>
-					<swiper-slide>
-						<ion-button class="buttongrey"> Nicki </ion-button>
-					</swiper-slide>
-					<swiper-slide>
-						<ion-button class="buttongrey"> Minaj </ion-button>
+					<swiper-slide v-for="data in category" :key="data.id">
+						<ion-button class="buttongrey"> {{ data.category }} </ion-button>
 					</swiper-slide>
 				</swiper>
 				<!-- End Button Slides -->
@@ -39,8 +27,13 @@
 				<div class="grid-container">
 					<div v-for="item in product" :key="item.id">
 						<router-link :to="{ name: 'Summary', params: { id: item.id } }">
-							<ProductBonchon :name="item.name" :description="item.description" :price="item.price"
-								:image="item.image" :rate="item.ratings" />
+							<ProductBonchon 
+								:name="item.name" 
+								:description="item.description" 
+								:price="item.price"
+								:image="item.image" 
+								:rate="item.ratings" 
+							/>
 						</router-link>
 					</div>
 				</div>
@@ -54,13 +47,19 @@
 import SideBar from "../../partials/SideBar.vue";
 import ProductBonchon from "../components/ProductBonchon.vue";
 import ProductHeader from "../components/ProductHeader.vue";
+import { 
+	IonContent, 
+	IonSearchbar, 
+	IonButton, 
+	IonPage 
+} from "@ionic/vue";
+
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { IonContent, IonSearchbar, IonButton, IonPage } from "@ionic/vue";
-import { ref, onMounted } from "vue";
 import "swiper/css";
 import "@ionic/vue/css/ionic-swiper.css";
-import axios from "axios";
 
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 const username = ref("user@praxxys.ph");
 const password = ref("password");
@@ -96,6 +95,13 @@ const fetchData = async () => {
 		console.log(error);
 	}
 };
+
+const category = ref ([
+	{id: 1, category: 'Chicken'},
+	{id: 2, category: 'Seafood'},
+	{id: 3, category: 'Nicki'},
+	{id: 4, category: 'Minaj'},
+])
 
 onMounted(() => {
 	fetchData();

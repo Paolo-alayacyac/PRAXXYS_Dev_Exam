@@ -1,5 +1,5 @@
 <template>
-    <div id="main-content" class="z-50">
+    <div id="main-content">
         <ion-header class="ion-no-border">
             <ion-toolbar class="toolbar">
                 <div class="topheader bg-white">

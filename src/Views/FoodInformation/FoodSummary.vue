@@ -1,7 +1,7 @@
 <template>
     <ion-page>
         <!-- Header -->
-        <FoodHeader />
+        <FoodHeader class="z-20" />
         <ion-content>
             <!-- Main Content -->
             <div class="foodsummarypadding">
@@ -20,7 +20,12 @@
                 <div class="flex3">
                     <p class="foodp"> P {{ selectedItem.price }} </p>
                     <!-- Button Component -->
-                    <Incrementation></Incrementation>
+
+                    <div class="counter__section flex">
+                        <ion-button class="reactive" id="decrement" @click="decrement()">-</ion-button>
+                        <p class="ion-padding-start ion-padding-end">{{ count }}</p>
+                        <ion-button class="reactive" id="increment" @click="increment()">+</ion-button>
+                    </div>
                 </div>
 
                 <!-- Search Bar -->
@@ -114,7 +119,7 @@ import {
     IonSearchbar,
     IonModal,
     IonRadio,
-    IonPage
+    IonPage,
 } from "@ionic/vue";
 
 import { ref, onMounted } from 'vue';
@@ -124,11 +129,23 @@ import axios from "axios";
 const username = ref("user@praxxys.ph");
 const password = ref("password");
 const product = ref([]);
+const count = ref(1);
 const route = useRoute();
 const selectedItem = ref({});
 const itemId = Number(route.params.id);
+const cart = ref([]);
 
 let accessToken = '';
+
+const increment = () => {
+    count.value++;
+};
+
+const decrement = () => {
+    if (count.value > 0) {
+        count.value--;
+    }
+};
 
 const fetchToken = async () => {
     try {
@@ -152,20 +169,31 @@ const fetchData = async () => {
             { headers: { Authorization: `Bearer ${accessToken}` } }
         );
         product.value = response.data.data.data;
-        console.log(product.value);
         selectedItem.value = product.value.find(product => product.id === itemId);
-        console.log(selectedItem.value);
     } catch (error) {
         console.log(error);
     }
 };
 
-onMounted(() => {
-    fetchData();
-});
+const addCart = async () => {
+    try {
+        await fetchToken();
+
+        const response = await axios.get(
+            "https://psi-exam-api.praxxys.dev/api/cart",
+            { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+        cart.value = response.data;
+        console.log(JSON.stringify(response.data));
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 
 onMounted(() => {
     fetchData();
+    addCart();
+    console.log(count);
 });
 </script>
