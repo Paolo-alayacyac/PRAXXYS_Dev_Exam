@@ -70,20 +70,18 @@
 	margin-top: 8px;
 }
 
+.swiper {
+	flex: none;
+}
 
 .swiper-slide {
 	text-align: center;
 	font-size: 18px;
 	background: #fff;
-
-	/* Center slide text vertically */
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .swiper-slide:nth-child(odd) {
-	width: auto;
+	width: 100%;
 }
 
 .swiper-slide:nth-child(even) {

@@ -147,6 +147,11 @@ const decrement = () => {
     }
 };
 
+const newItem = {
+    ProductId: itemId,
+    quantity: count,
+}
+
 const fetchToken = async () => {
     try {
         const response = await axios.post(
@@ -185,43 +190,16 @@ const addCart = async () => {
         );
         cart.value = response.data;
         cart.value.data.items.push(newItem);
-        console.log(JSON.stringify(response.data));
-        console.log(cart.value.data.items)
+
+        localStorage.setItem("cartData", JSON.stringify(cart.value.data));
     } catch (error) {
         console.log(error);
     }
 };
 
-
-const newItem = {
-    // Add your item properties here
-    itemName: 'New Item',
-    quantity: 'New Items',
-    // ...
-}
-
-const myData = ref({
-    data: {
-        id: 1,
-        user_id: 1,
-        status: 0,
-        created_at: '2023-07-18T03:08:04.000000Z',
-        updated_at: '2023-07-18T03:08:04.000000Z',
-        status_meta: {
-            description: 'Pending'
-        },
-        items: []
-    }
-})
-
-myData.value.data.items.push(newItem);
-
-console.log(myData.value.data);
-
 onMounted(() => {
     fetchData();
     addCart();
     console.log(count);
-    console.log(myData.value.data);
 });
 </script>

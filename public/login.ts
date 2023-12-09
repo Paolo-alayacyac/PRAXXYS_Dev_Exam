@@ -7,6 +7,7 @@ export const useLoginLogic = () => {
 	const username = ref("email");
 	const password = ref("password");
 	const errorMessage = ref("");
+	const accessToken = ref([]);
 
 	const performLogin = async () => {
 		const isCredentialsValid =
@@ -22,8 +23,9 @@ export const useLoginLogic = () => {
 						password: password.value,
 					}
 				);
-
+				
 				console.log(JSON.stringify(response.data));
+				localStorage.setItem("token", JSON.stringify(response.data));
 				await router.push("/home");
 			} catch (error) {
 				console.error(error);
@@ -50,5 +52,6 @@ export const useLoginLogic = () => {
 		password,
 		errorMessage,
 		performLogin,
+		accessToken
 	};
 };

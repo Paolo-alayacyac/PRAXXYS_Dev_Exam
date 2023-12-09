@@ -83,8 +83,16 @@ const fetchToken = async () => {
 
 const fetchData = async () => {
 	try {
-		await fetchToken();
+		const storedTokens = localStorage.getItem("token");
 
+		if (!storedTokens) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        const tokenData = JSON.parse(storedTokens);
+        const accessToken = tokenData.access_token;
+		
 		const response = await axios.get(
 			"https://psi-exam-api.praxxys.dev/api/products",
 			{ headers: { Authorization: `Bearer ${accessToken}` } }

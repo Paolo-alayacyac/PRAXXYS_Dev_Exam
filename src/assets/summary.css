@@ -84,14 +84,6 @@ ion-checkbox {
     align-items: center;
 }
 
-.relative {
-    position: relative;
-}
-
-.absolute {
-    position: absolute;
-}
-
 .buttonsummary2 {
     display: flex;
     justify-content: space-between;
@@ -184,7 +176,6 @@ ion-checkbox {
 
 .info__edit {
     height: 103px;
-    width: 100%;
     left: 16px;
     top: 105px;
     background: rgba(253, 125, 20, 0.2);
@@ -196,7 +187,28 @@ ion-checkbox {
 
 .info__delete {
     height: 103px;
-    width: 100%;
+    left: 16px;
+    top: 105px;
+    background: rgba(220, 53, 69, 0.2);
+    border-radius: 16px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.info__editOrder {
+    height: 181px;
+    left: 16px;
+    top: 105px;
+    background: rgba(253, 125, 20, 0.2);
+    border-radius: 16px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.info__deleteOrder {
+    height: 181px;
     left: 16px;
     top: 105px;
     background: rgba(220, 53, 69, 0.2);
@@ -212,22 +224,21 @@ ion-checkbox {
 }
 
 .ion-padding-info{
-    padding: 16px 26vh 16px 16px; 
+    padding: 16px 16px 16px; 
 }
 
 .p10 {
-    margin-left: 0px;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     color: #6C757D;
+    width: 100%;
 }
 
 .orders {
     width: 100%;
     height: 181px;
     left: 16px;
-    top: 492px;
     background: #E9ECEF;
     border-radius: 16px;
     margin-right: 8px;
