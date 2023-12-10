@@ -100,7 +100,7 @@
 
             <!-- Fixed Button -->
             <div class="ion-padding-start ion-padding-end">
-                <ion-button expand="block" class="buttonsummary" id="open-custom-dialog">
+                <ion-button expand="block" class="buttonsummary" id="open-custom-dialog" @click="addCart(selectedItem.id)">
                     Add to Bag
                 </ion-button>
             </div>
@@ -124,6 +124,7 @@ import {
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from "axios";
+import FormData from 'form-data';
 
 const product = ref([]);
 const count = ref(1);
@@ -131,6 +132,7 @@ const route = useRoute();
 const selectedItem = ref({});
 const itemId = Number(route.params.id);
 const cart = ref([]);
+const apiUrl = 'https://psi-exam-api.praxxys.dev/api/cart/add';
 
 const increment = () => {
     count.value++;
@@ -166,43 +168,63 @@ const fetchData = async () => {
     }
 };
 
-const addCart = async () => {
 
-    await fetchData()
+const addCart = async (productId: any) => {
+    const storedTokens = localStorage.getItem("token");
+
+    if (!storedTokens) {
+        console.error("Token not found in local storage");
+        return;
+    }
+
+    const data = new FormData();
+
+    data.append('quantity', count.value.toString());
+
+    const tokenData = JSON.parse(storedTokens);
+    const accessToken = tokenData.access_token;
+
+    const config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${apiUrl}/${productId}`,
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+        },
+        data: data,
+    };
 
     try {
-        const storedTokens = localStorage.getItem("token");
+        const response = await axios(config);
+        console.log(JSON.stringify(response.data));
 
-        if (!storedTokens) {
-            console.error("Token not found in local storage");
-            return;
+        const existingCartDataString = localStorage.getItem("cartData");
+        let existingCartData = existingCartDataString ? JSON.parse(existingCartDataString) : [];
+
+        if (!Array.isArray(existingCartData)) {
+            existingCartData = [];
         }
 
-        const tokenData = JSON.parse(storedTokens);
-        const accessToken = tokenData.access_token;
-
-        const response = await axios.get(
-            "https://psi-exam-api.praxxys.dev/api/cart",
-            { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
-        cart.value = response.data;
-
-        cart.value.data.items.push({
-            productId: selectedItem.value.id,
-            quantity: count,
-            name: selectedItem.value.name,
+        // Add the new item to the cart data
+        const newItem = {
+            productId: productId,
+            quantity: count.value,
             image: selectedItem.value.image,
             price: selectedItem.value.price,
-        });
+            name: selectedItem.value.name
+        };
 
-        localStorage.setItem("cartData", JSON.stringify(cart.value.data));
+        existingCartData.push(newItem);
+
+        localStorage.setItem("cartData", JSON.stringify(existingCartData));
+        console.log(existingCartData);
+
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
 onMounted(() => {
     fetchData();
-    addCart();
 });
 </script>

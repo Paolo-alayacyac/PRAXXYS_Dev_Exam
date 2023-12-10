@@ -1,10 +1,10 @@
 <template>
     <ion-page class="z-10">
         <!-- header -->
-        <TopNavigation/>
+        <TopNavigation />
         <ion-content>
-            <SideBar class="z-20"/>
-            
+            <SideBar class="z-20" />
+
             <div class="content">
                 <div class="flex">
                     <img alt="Logo" src="/assets/homepage/Logo.png" />
@@ -23,15 +23,15 @@
                     <ion-button href="/" fill="clear" color="danger" class="viewall">
                         View All
                     </ion-button>
-                        <img class="ion-padding-start" src="/assets/homepage/Vector.svg">
+                    <img class="ion-padding-start" src="/assets/homepage/Vector.svg">
                 </div>
             </div>
 
             <!-- SWIPER FOR SPECIAL OFFER -->
             <swiper :slides-per-view="1.1" :spaceBetween="8" class="ml">
                 <swiper-slide class="relative" v-for="i in 10" :key="i">
-                        <img class="special z-0" src="/assets/homepage/Special.png">
-                        <div class="absolute -left-[17px] bg-white z-50 w-7 h-7 rounded-full"></div>
+                    <img class="special z-0" src="/assets/homepage/Special.png">
+                    <div class="absolute -left-[17px] bg-white z-50 w-7 h-7 rounded-full"></div>
                 </swiper-slide>
             </swiper>
             <!-- End SWIPER FOR SPECIAL OFFER -->
@@ -59,13 +59,8 @@
                     <div class="grid-container ion-padding-start ion-padding-end">
                         <div v-for="item in product" :key="item.id">
                             <router-link :to="{ name: 'Summary', params: { id: item.id } }">
-                                <ProductBonchon 
-                                    :name="item.name" 
-                                    :description="item.description" 
-                                    :price="item.price"
-                                    :image="item.image" 
-                                    :rate="item.ratings" 
-                                />
+                                <ProductBonchon :name="item.name" :description="item.description" :price="item.price"
+                                    :image="item.image" :rate="item.ratings" />
                             </router-link>
                         </div>
                     </div>

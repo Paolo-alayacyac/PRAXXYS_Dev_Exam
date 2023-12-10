@@ -159,11 +159,12 @@
                         </swiper-slide>
                         <swiper-slide class="clnt__info2">
                             <div class="flex Clnt__ct">
-                                <div class="info__deleteOrder ion-padding">
-                                    <img src="/assets/icon/trash.png" />
+                                <div class="info__deleteOrder ion-padding" @click="deleteProduct(item.productId)">
+                                    <img src="/assets/icon/trash.png" alt="Delete" />
                                 </div>
                             </div>
                         </swiper-slide>
+
                     </swiper>
                 </div>
                 <!-- END ORDERS -->
@@ -306,9 +307,52 @@ const fetchData = async () => {
             { headers: { Authorization: `Bearer ${accessToken}` } }
         );
         product.value = response.data.data.data;
-        console.log(product.value);
+        // console.log(product.value);
     } catch (error) {
         console.log(error);
+    }
+};
+
+const apiUrl = 'https://psi-exam-api.praxxys.dev/api/cart/delete';
+
+// Function to delete a product
+const deleteProduct = async (itemId: any) => {
+    const storedTokens = localStorage.getItem("token");
+
+    if (!storedTokens) {
+        console.error("Token not found in local storage");
+        return;
+    }
+
+    const tokenData = JSON.parse(storedTokens);
+    const accessToken = tokenData.access_token;
+
+    const existingCartDataString = localStorage.getItem("cartData");
+
+    const config = {
+        method: 'delete',
+        url: `${apiUrl}/${itemId}`,
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+        }
+    };
+
+    try {
+        const parsedObject = JSON.parse(existingCartDataString);
+        cartItems.value = [parsedObject];
+        itemsRaw.value = cartItems.value[0];
+
+        const updatedCartData = itemsRaw.value.filter(item => item.productId !== itemId);
+
+        localStorage.setItem("cartData", JSON.stringify(updatedCartData));
+
+        itemsRaw.value = updatedCartData;
+        
+        console.log(itemsRaw.value);
+
+        window.location.reload();
+    } catch (error) {
+        console.error("An error occurred while deleting the product:", error);
     }
 };
 
@@ -316,13 +360,15 @@ onMounted(() => {
     fetchData();
     const storedCartData = localStorage.getItem("cartData");
 
+    // console.log(storedCartData);
+
     if (storedCartData) {
         const parsedObject = JSON.parse(storedCartData);
         cartItems.value = [parsedObject];
-        itemsRaw.value = cartItems.value[0].items;
+        itemsRaw.value = cartItems.value[0];
 
-        console.log(cartItems.value);
-        console.log(itemsRaw.value);
+        // console.log(cartItems.value);
+        // console.log(itemsRaw.value);
     }
 });
 </script>
