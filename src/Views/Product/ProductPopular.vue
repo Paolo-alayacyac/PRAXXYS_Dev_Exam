@@ -11,11 +11,11 @@
 					<ion-searchbar placeholder="try our new Steak Fries Veggies" class="custom2"></ion-searchbar>
 				</div>
 				<!-- Button Slides -->
-				<swiper :slidesPerView="'auto'" :spaceBetween="8" class="mySwiper productswiper ml mt">
-					<swiper-slide>
+				<swiper :slidesPerView="'auto'" :spaceBetween="8" class="productswiper swiper_layout ml mt">
+					<swiper-slide class="swiper_layout">
 						<ion-button class="buttons"> All </ion-button>
 					</swiper-slide>
-					<swiper-slide v-for="data in category" :key="data.id">
+					<swiper-slide class="swiper_layout" v-for="data in category" :key="data.id">
 						<ion-button class="buttongrey"> {{ data.category }} </ion-button>
 					</swiper-slide>
 				</swiper>
@@ -61,25 +61,7 @@ import "@ionic/vue/css/ionic-swiper.css";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const username = ref("user@praxxys.ph");
-const password = ref("password");
 const product = ref([]);
-
-let accessToken = '';
-
-const fetchToken = async () => {
-	try {
-		const response = await axios.post(
-			"https://psi-exam-api.praxxys.dev/api/auth/login",
-			{ email: username.value, password: password.value }
-		);
-		accessToken = response.data.access_token;
-		console.log(JSON.stringify(accessToken));
-	} catch (error) {
-		console.error(error);
-		// Handle error if needed
-	}
-};
 
 const fetchData = async () => {
 	try {

@@ -116,14 +116,16 @@
                 <h2 class="ion-padding-top">Orders</h2>
                 <div>
                     <swiper :slidesPerView="'auto'" :spaceBetween="8" :pagination="{ clickable: true }" class="swiper mt"
-                    v-for="item in itemsRaw" :key="item.id">
+                        v-for="item in itemsRaw" :key="item.id">
                         <swiper-slide class="clnt__info">
                             <div class="flex Clnt__ct">
                                 <div class="orders">
                                     <div class="flex">
-                                        <img src="/assets/summary/pngwing2.png" alt="food" />
+                                        <div class="w-12">
+                                            <img :src="item.image" alt="food" class="w-full h-full" />
+                                        </div>
                                         <div class="ml">
-                                            <p class="steak"></p>
+                                            <p class="steak">{{ item.name }}</p>
                                             <p class="psummary">1x Tomato Sauce</p>
                                             <p class="psummary">1x Regular Coke</p>
                                             <p class="psummary">1x Fried Chicken</p>
@@ -131,13 +133,13 @@
                                     </div>
                                     <hr class="hr2 mt" />
                                     <div class="flex3">
-                                        <p class="foods">P 172</p>
+                                        <p class="foods">P {{ item.price }}</p>
                                         <div class="flex">
                                             <div class="counter__section flex">
                                                 <ion-button class="reactive" id="decrement"
                                                     @click="decrement()">-</ion-button>
                                                 <p class="ion-padding-start ion-padding-end">
-                                                    {{ count }}
+                                                    {{ item.quantity + count }}
                                                 </p>
                                                 <ion-button class="reactive" id="increment"
                                                     @click="increment()">+</ion-button>
@@ -272,7 +274,7 @@ import "@ionic/vue/css/ionic-swiper.css";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const count = ref(1);
+const count = ref(0);
 const product = ref([]);
 const cartItems = ref([]);
 const itemsRaw = ref([]);
@@ -318,7 +320,7 @@ onMounted(() => {
         const parsedObject = JSON.parse(storedCartData);
         cartItems.value = [parsedObject];
         itemsRaw.value = cartItems.value[0].items;
-        
+
         console.log(cartItems.value);
         console.log(itemsRaw.value);
     }

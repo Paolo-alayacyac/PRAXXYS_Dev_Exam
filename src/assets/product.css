@@ -74,6 +74,10 @@
 	flex: none;
 }
 
+.swiper_layout:nth-child(odd){
+	width: auto !important;
+}
+
 .swiper-slide {
 	text-align: center;
 	font-size: 18px;

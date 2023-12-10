@@ -78,7 +78,6 @@
                 <HomeButton class="homebutton">Order Now!</HomeButton>
             </a>
             <!-- End fixed Button -->
-
         </ion-content>
     </ion-page>
 </template>
@@ -141,7 +140,6 @@ const fetchData = async () => {
         console.log(error);
     }
 };
-
 
 onMounted(() => {
     fetchData();

@@ -98,7 +98,6 @@
                 </div>
             </ion-modal>
 
-
             <!-- Fixed Button -->
             <div class="ion-padding-start ion-padding-end">
                 <ion-button expand="block" class="buttonsummary" id="open-custom-dialog">
@@ -126,16 +125,12 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from "axios";
 
-const username = ref("user@praxxys.ph");
-const password = ref("password");
 const product = ref([]);
 const count = ref(1);
 const route = useRoute();
 const selectedItem = ref({});
 const itemId = Number(route.params.id);
 const cart = ref([]);
-
-let accessToken = '';
 
 const increment = () => {
     count.value++;
@@ -147,27 +142,18 @@ const decrement = () => {
     }
 };
 
-const newItem = {
-    ProductId: itemId,
-    quantity: count,
-}
-
-const fetchToken = async () => {
-    try {
-        const response = await axios.post(
-            "https://psi-exam-api.praxxys.dev/api/auth/login",
-            { email: username.value, password: password.value }
-        );
-        return accessToken = response.data.access_token;
-    } catch (error) {
-        console.error(error);
-    }
-};
-
 const fetchData = async () => {
     try {
         const itemId = Number(route.params.id);
-        await fetchToken();
+        const storedTokens = localStorage.getItem("token");
+
+        if (!storedTokens) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        const tokenData = JSON.parse(storedTokens);
+        const accessToken = tokenData.access_token;
 
         const response = await axios.get(
             "https://psi-exam-api.praxxys.dev/api/products",
@@ -181,15 +167,33 @@ const fetchData = async () => {
 };
 
 const addCart = async () => {
+
+    await fetchData()
+
     try {
-        await fetchToken();
+        const storedTokens = localStorage.getItem("token");
+
+        if (!storedTokens) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        const tokenData = JSON.parse(storedTokens);
+        const accessToken = tokenData.access_token;
 
         const response = await axios.get(
             "https://psi-exam-api.praxxys.dev/api/cart",
             { headers: { Authorization: `Bearer ${accessToken}` } }
         );
         cart.value = response.data;
-        cart.value.data.items.push(newItem);
+
+        cart.value.data.items.push({
+            productId: selectedItem.value.id,
+            quantity: count,
+            name: selectedItem.value.name,
+            image: selectedItem.value.image,
+            price: selectedItem.value.price,
+        });
 
         localStorage.setItem("cartData", JSON.stringify(cart.value.data));
     } catch (error) {
@@ -200,6 +204,5 @@ const addCart = async () => {
 onMounted(() => {
     fetchData();
     addCart();
-    console.log(count);
 });
 </script>
