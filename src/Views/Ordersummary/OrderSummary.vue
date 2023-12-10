@@ -4,7 +4,7 @@
             <div id="main-content">
                 <ion-header class="ion-no-border ion-header">
                     <ion-toolbar class="toolbar">
-                        <ion-button slot="start" class="backbutton" href="/summary/:id">
+                        <ion-button slot="start" class="backbutton" @click="$router.go(-1)">
                             <img alt="button" src="/assets/summary/back.png" />
                         </ion-button>
                         <div class="flex header3">
@@ -347,7 +347,7 @@ const deleteProduct = async (itemId: any) => {
         localStorage.setItem("cartData", JSON.stringify(updatedCartData));
 
         itemsRaw.value = updatedCartData;
-        
+
         console.log(itemsRaw.value);
 
         window.location.reload();

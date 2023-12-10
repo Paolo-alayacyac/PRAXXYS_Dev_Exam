@@ -168,7 +168,6 @@ const fetchData = async () => {
     }
 };
 
-
 const addCart = async (productId: any) => {
     const storedTokens = localStorage.getItem("token");
 
