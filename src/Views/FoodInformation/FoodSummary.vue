@@ -1,7 +1,7 @@
 <template>
     <ion-page>
         <!-- Header -->
-        <FoodHeader class="z-20" />
+        <FoodHeader class="z-50 bg-white" />
         <ion-content>
             <!-- Main Content -->
             <div class="foodsummarypadding">

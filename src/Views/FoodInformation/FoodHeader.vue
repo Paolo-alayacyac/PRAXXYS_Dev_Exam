@@ -17,8 +17,10 @@
 </template>
 
 <script setup lang="ts">
-
 import {
     IonButton,
+    IonHeader,
+    IonToolbar,
 } from "@ionic/vue";
+
 </script>
