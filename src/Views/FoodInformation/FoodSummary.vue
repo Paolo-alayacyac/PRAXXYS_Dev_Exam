@@ -6,8 +6,8 @@
             <!-- Main Content -->
             <div class="foodsummarypadding">
                 <div class="h-full">
-                    <div class="summaryitem h-full">
-                        <img class="aspect" alt="Profile pic" :src="selectedItem.image" />
+                    <div class="aspect">
+                        <img class="h-full w-full" alt="Profile pic" :src="selectedItem.image" />
                     </div>
 
                     <p class="mt-7">{{ selectedItem.name }}</p>
