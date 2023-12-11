@@ -250,11 +250,6 @@ const getCart = async () => {
     }
 };
 
-// Call the getCart function
-getCart();
-
-
-
 onMounted(() => {
     fetchData();
     getCart();
