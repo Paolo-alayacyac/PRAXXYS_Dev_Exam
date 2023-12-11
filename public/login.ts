@@ -4,17 +4,18 @@ import { useRouter } from "vue-router";
 
 export const useLoginLogic = () => {
 	const router = useRouter();
-	const username = ref("email");
-	const password = ref("password");
+	const username = ref("");
+	const password = ref("");
 	const errorMessage = ref("");
 	const accessToken = ref([]);
 
 	const performLogin = async () => {
 		const isCredentialsValid =
-			username.value === "user@praxxys.ph" &&
-			password.value === "password";
+			username.value === "user@praxxys.ph" && password.value === "password";
 
-		if (isCredentialsValid) {
+		if (!username.value || !password.value) {
+			handleLoginError("Both username and password are required.");
+		} else if (isCredentialsValid) {
 			try {
 				const response = await axios.post(
 					"https://psi-exam-api.praxxys.dev/api/auth/login",
@@ -23,20 +24,37 @@ export const useLoginLogic = () => {
 						password: password.value,
 					}
 				);
-				
+
 				console.log(JSON.stringify(response.data));
 				localStorage.setItem("token", JSON.stringify(response.data));
 				await router.push("/home");
 			} catch (error) {
 				console.error(error);
-				handleLoginError(
-					"Error in the login process. Please try again later."
-				);
+				if (error.response) {
+					if (error.response.status === 401) {
+						handleLoginError("Incorrect password.");
+					} else {
+						handleLoginError(
+							"Error in the login process. Please try again later."
+						);
+					}
+				} else {
+					handleLoginError(
+						"Error in the login process. Please try again later."
+					);
+				}
 			}
 		} else {
-			handleLoginError("Invalid credentials.");
+			// Check if the username is incorrect
+			if (username.value !== "user@praxxys.ph") {
+				handleLoginError("Incorrect username.");
+			} else {
+				handleLoginError("Incorrect passwrod.");
+			}
 		}
 	};
+
+
 
 	const handleLoginError = (message: string) => {
 		errorMessage.value = message;

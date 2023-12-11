@@ -162,6 +162,7 @@ const fetchData = async () => {
             { headers: { Authorization: `Bearer ${accessToken}` } }
         );
         product.value = response.data.data.data;
+        console.log(product);
         selectedItem.value = product.value.find(product => product.id === itemId);
     } catch (error) {
         console.log(error);
@@ -197,25 +198,25 @@ const addCart = async (productId: any) => {
         const response = await axios(config);
         console.log(JSON.stringify(response.data));
 
-        const existingCartDataString = localStorage.getItem("cartData");
-        let existingCartData = existingCartDataString ? JSON.parse(existingCartDataString) : [];
-
-        if (!Array.isArray(existingCartData)) {
-            existingCartData = [];
-        }
+        const existingCartDataString = localStorage.getItem("getCart");
+        const existingCartData = existingCartDataString ? JSON.parse(existingCartDataString) : [];
 
         // Add the new item to the cart data
         const newItem = {
+            cart_id: selectedItem.value.id,
             productId: productId,
             quantity: count.value,
-            image: selectedItem.value.image,
-            price: selectedItem.value.price,
-            name: selectedItem.value.name
+            product: {
+                image: selectedItem.value.image,
+                price: selectedItem.value.price,
+                name: selectedItem.value.name,
+                rating: selectedItem.value.ratings,
+            },
         };
 
         existingCartData.push(newItem);
 
-        localStorage.setItem("cartData", JSON.stringify(existingCartData));
+        localStorage.setItem("getCart", JSON.stringify(existingCartData));
         console.log(existingCartData);
 
     } catch (error) {
@@ -223,7 +224,39 @@ const addCart = async (productId: any) => {
     }
 };
 
+const getCart = async () => {
+    try {
+        const storedTokens = localStorage.getItem("token");
+
+        if (!storedTokens) {
+            console.error("Token not found in local storage");
+            return;
+        }
+
+        const tokenData = JSON.parse(storedTokens);
+        const accessToken = tokenData.access_token;
+
+        const response = await axios.get(
+            "https://psi-exam-api.praxxys.dev/api/cart",
+            { headers: { Authorization: `Bearer ${accessToken}` } }
+        );
+
+        const newCartItems = response.data.data.items;
+
+        localStorage.setItem("getCart", JSON.stringify(newCartItems));
+        console.log(newCartItems);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// Call the getCart function
+getCart();
+
+
+
 onMounted(() => {
     fetchData();
+    getCart();
 });
 </script>
