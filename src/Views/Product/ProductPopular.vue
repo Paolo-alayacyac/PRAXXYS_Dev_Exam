@@ -81,10 +81,6 @@ const fetchData = async () => {
 		);
 		product.value = response.data.data.data;
 		console.log(JSON.stringify(response.data));
-		
-		const existingCartDataString = localStorage.getItem("getCart");
-
-		console.log(existingCartDataString);
 	} catch (error) {
 		console.log(error);
 	}

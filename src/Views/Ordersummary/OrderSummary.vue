@@ -159,12 +159,11 @@
                         </swiper-slide>
                         <swiper-slide class="clnt__info2">
                             <div class="flex Clnt__ct">
-                                <div class="info__deleteOrder ion-padding" @click="deleteProduct(item.product_id)">
+                                <div class="info__deleteOrder ion-padding" @click="deleteProduct(item.id)">
                                     <img src="/assets/icon/trash.png" alt="Delete" />
                                 </div>
                             </div>
                         </swiper-slide>
-
                     </swiper>
                 </div>
                 <!-- END ORDERS -->
@@ -281,6 +280,7 @@ const cartItems = ref([]);
 const itemsRaw = ref([]);
 const apiUrl = 'https://psi-exam-api.praxxys.dev/api/cart/delete';
 
+const cart = ref([]);
 const increment = () => {
     count.value++;
 };
@@ -304,17 +304,19 @@ const deleteProduct = async (itemId: any) => {
         const accessToken = tokenData.access_token;
 
         // Send the DELETE request to the API
-        const response = await axios.delete(`${apiUrl}/${itemId}`, {
+        const response = await axios.delete(`https://psi-exam-api.praxxys.dev/api/cart/delete/${itemId}`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             }
         });
 
-        if (response.status !== 200) {
-            console.error("Failed to delete the product. Status:", response.status);
-            return;
-        }
+        // Assuming the API returns relevant data in the response, update your cart.value
+        // This assumes that the response.data.data contains the updated cart information.
+        // Adjust this based on the actual structure of the API response.
+        cart.value = response.data.data;
+        console.log(JSON.stringify(cart.value));
 
+        // Assuming that "getCart" contains the original cart data
         const existingCartDataString = localStorage.getItem("getCart");
 
         if (!existingCartDataString) {
@@ -323,19 +325,21 @@ const deleteProduct = async (itemId: any) => {
         }
 
         const parsedObject = JSON.parse(existingCartDataString);
-        const updatedCartData = parsedObject.filter((item: { product_id: any; }) => item.product_id !== itemId);
+        const updatedCartData = parsedObject.filter((selectedItem: { id: any; }) => selectedItem.id !== itemId);
 
         // Update both the reactive variable and localStorage
         cartItems.value = updatedCartData;
-        localStorage.setItem("cartData", JSON.stringify(updatedCartData));
+        localStorage.setItem("getCart", JSON.stringify(updatedCartData));
 
         console.log(cartItems.value);
 
-        // window.location.reload();
+        // Optionally, remove this line if you don't want to reload the page after deletion
+        window.location.reload();
     } catch (error) {
         console.error("An error occurred while deleting the product:", error);
     }
 };
+
 
 onMounted(() => {
     const storedCartData = localStorage.getItem("getCart");
