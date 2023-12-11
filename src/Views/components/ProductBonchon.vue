@@ -10,9 +10,7 @@
 				<div class="flex-between">
 					<ion-text class="pricetext"> P {{ price }} </ion-text>
 					<ion-text> Rate {{ rate }} </ion-text>
-					<!-- <img
-						:src="rate"
-						alt="rating" /> -->
+					<!-- <img :src="rate"alt="rating" /> -->
 				</div>
 			</div>
 		</div>
