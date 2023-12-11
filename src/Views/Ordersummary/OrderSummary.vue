@@ -121,7 +121,7 @@
                             <div class="flex Clnt__ct">
                                 <div class="orders">
                                     <div class="flex">
-                                        <div class="w-12">
+                                        <div class="w-[20%]">
                                             <img :src="item.product.image" alt="food" class="w-full h-full" />
                                         </div>
                                         <div class="ml">

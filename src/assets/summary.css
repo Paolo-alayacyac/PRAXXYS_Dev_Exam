@@ -237,7 +237,7 @@ ion-checkbox {
 
 .orders {
     width: 100%;
-    height: 181px;
+    height: auto;
     left: 16px;
     background: #E9ECEF;
     border-radius: 16px;
@@ -430,9 +430,11 @@ ion-modal#example-modal .wrapper {
 
 .Clnt__ct {
     width: 100%;
+    height: auto;
     text-align: start;
 }
 
 .clnt__info {
     width: 100%;
+    height: auto;
 }
